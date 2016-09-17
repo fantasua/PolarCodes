@@ -6,12 +6,12 @@
 
 class infoGen {
 public:
-	infoGen(unsigned int len):infoLength(len), info(len) {}
+	infoGen(int len) :infoLength(len) { info = new int[infoLength]; }
 	void gen();
-
+	~infoGen() { delete[] info; }
 public:
 	std::size_t infoLength;
-	std::vector<unsigned int> info;
+	int *info;
 	
 };
 

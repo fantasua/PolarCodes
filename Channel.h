@@ -2,7 +2,7 @@
 #define CHANNEL_H
 //the awgn channel
 #include <random>
-#include <vector>
+//#include <vector>
 class Channel {
 public:
 	Channel() = default;
@@ -18,13 +18,17 @@ public:
 	*/
 	Channel(double snr, unsigned int len, double r) :SNR_dB(snr), length(len), R(r)
 	{
-		input.resize(length);
+		//input = new int[length];
 		double SNR_not_dB = pow(10, 0.1*SNR_dB);
 		sigma2 = 1 / (2 * R*SNR_not_dB);
 		sigma = sqrt(sigma2);
-		output.resize(length);
+		output = new double[length];
 	}
-	~Channel() {}
+	~Channel()
+	{ 
+		//delete[] input; 
+		delete[] output;
+	}
 	void add_gauss();			//gaussian white noise
 
 public:
@@ -34,8 +38,8 @@ public:
 	double sigma;
 	std::size_t length;
 
-	std::vector<int> input;	//input sequence
-	std::vector<double> output;	//output sequence
+	int *input;	//input sequence
+	double *output;	//output sequence
 
 };
 
